@@ -1,4 +1,4 @@
-package com.hormigo.david.parkingmanager.core.configuration;
+package com.hormigo.david.parkingmanager.user.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +28,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         UserDetails details = User.withUsername(user.getEmail())
             .password(user.getPassword())
-            .accountExpired(false)
-            .accountLocked(false)
+            .accountExpired(user.isExpired())
+            .accountLocked(user.isLocked())
+            .disabled(!user.isVerified())
             .roles(user.getRole().toString())
             .build();
         return details;

@@ -21,26 +21,38 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
     private String name;
     private String lastName1;
     private String lastName2;
     private Role role;
-
+    private boolean expired;
+    private boolean locked;
+    private boolean verified;
+    
     @ManyToMany
     @JoinTable(name = "users_included",
     joinColumns = @JoinColumn(name="user_id"),
      inverseJoinColumns = @JoinColumn(name="draw_id"))
     private Set<Draw> includedIn;
-
+    
+    /**
+     * @param email
+     * @param password
+     * @param name
+     * @param lastName1
+     * @param role
+     */
     public User(String email, String password, String name, String lastName1, Role role) {
         this(email,password,name,lastName1,"",role);
     }
+    /**
+     * @param email
+     * @param password
+     * @param name
+     * @param lastName1
+     * @param lastName2
+     * @param role
+     */
     public User(String email, String password, String name, String lastName1, String lastName2, Role role) {
         this.email = email;
         this.password = password;
@@ -55,6 +67,35 @@ public class User {
     public User() {
         this("","","","",null);
     }
+    public boolean isExpired() {
+        return expired;
+    }
+    /**
+     * @param expired
+     */
+    public void setExpired(boolean expired) {
+        this.expired = expired;
+    }
+    public boolean isLocked() {
+        return locked;
+    }
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+    public boolean isVerified() {
+        return verified;
+    }
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
 
     /**
      * @return identif

@@ -31,7 +31,7 @@ public class UserController {
         return "user/list";
     }
 
-    @GetMapping("/newUser")
+    @GetMapping("/register")
     public String showUserCreateForm(Model model) {
         addRoleSelectList(model);
         UserDao userDao = new UserDao();
@@ -44,7 +44,7 @@ public class UserController {
         model.addAttribute("roles", roles);
     }
 
-    @PostMapping("/newUser")
+    @PostMapping("/register")
     public String createUser(@Valid @ModelAttribute("userDao") UserDao userDao,BindingResult bindingResult, Model model) {
         // Si algún error de validación automática con UserDao        
         if (bindingResult.hasErrors()) {
@@ -63,6 +63,6 @@ public class UserController {
             bindingResult.reject("email", "Ya existe el usuario con el correo");
             return "user/createform";
         }
-        return "redirect:/users";
+        return "redirect:/";
     }
 }
