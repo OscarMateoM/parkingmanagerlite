@@ -1,6 +1,7 @@
 package com.hormigo.david.parkingmanager.user.service;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hormigo.david.parkingmanager.core.exceptions.UserDoesNotExistsException;
@@ -11,10 +12,13 @@ import com.hormigo.david.parkingmanager.user.domain.UserRepository;
 @Service
 public class UserServiceImpl implements UserService {
 
+    
+    private PasswordEncoder encoder;
     private UserRepository repository;
 
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceImpl(UserRepository repository,PasswordEncoder encoder) {
         this.repository = repository;
+        this.encoder = encoder;
     }
 
     @Override
@@ -30,12 +34,14 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         
         BeanUtils.copyProperties(userDao, user);
+        user.setPassword(encoder.encode(userDao.getPassword()));
+
         this.repository.save(user);
     }
 
     @Override
     public boolean userExists(String email) {
-        return getByEmail(email) != null ? true : false;
+        return this.repository.findByEmail(email).orElse(null) != null ? true : false;
 
     }
 

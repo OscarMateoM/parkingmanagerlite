@@ -33,7 +33,7 @@ public class UserControllerTest {
         users.add(new User("david@user","David","Hormigo","Ramírez",Role.PROFESSOR));
         when(this.userService.getAll()).thenReturn(users);
 
-        List<User> received = (List<User>) this.userService.getAll();
+        //List<User> received = (List<User>) this.userService.getAll();
         try {
             this.mockMvc.perform(get("/users"))
                         .andExpect(status().isOk())

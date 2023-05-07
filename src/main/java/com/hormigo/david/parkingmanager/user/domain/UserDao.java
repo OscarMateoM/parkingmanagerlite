@@ -8,21 +8,31 @@ public class UserDao {
     @Email(message = "El formato del corrreo no es aducado")
     @NotBlank(message = "El correo noo puede ser vacio")
     private String email;
+    @NotBlank(message="La contraseña no puede ser vacia")
+    private String password;
     @NotBlank(message = "El nombre es obligatorio")
     private String name;
     @NotBlank(message = "El primer apellido es obligatorio")
     private String lastName1;
+    
     private String lastName2;
     private Role role;
     public UserDao(){
-        this("","","","",null);
+        this("","","","","",null);
     }
-    public UserDao(String email, String name, String lastName1, String lastName2, Role role) {
+    public UserDao(String email, String password,String name, String lastName1, String lastName2, Role role) {
         this.email = email;
+        this.password = password;
         this.name = name;
         this.lastName1 = lastName1;
         this.lastName2 = lastName2;
         this.role = role;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
     public String getEmail() {
         return email;

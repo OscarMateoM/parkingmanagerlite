@@ -30,7 +30,7 @@
     <h1 id="user-form-title" class="title is-1">Crear nuevo usuario</h1>
     <div class="column is-half is-offset-one-quarter">
     <form
-      th:action="@{/newUser}"
+      th:action="@{/register}"
       th:object="${userDao}"
       action="#"
       method="post"
@@ -87,6 +87,20 @@
             id="user-create-field-lastname2"
             th:field="*{lastName2}"
             type="text"
+            placeholder="Mc Allister"
+            class="input"
+          />
+        </div>
+      </div>
+      <div class="field">
+        <label id="user-create-label-password" class="label"
+          >Contraseña</label
+        >
+        <div class="control">
+          <input
+            id="user-create-field-password"
+            th:field="*{password}"
+            type="password"
             placeholder="Mc Allister"
             class="input"
           />

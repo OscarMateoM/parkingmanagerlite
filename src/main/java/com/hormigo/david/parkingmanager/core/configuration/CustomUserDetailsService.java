@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.User;
 
@@ -27,14 +26,11 @@ public class CustomUserDetailsService implements UserDetailsService {
         catch (UserDoesNotExistsException ex) {
             throw new UsernameNotFoundException(username);
         }
-        // TODO: Cambiarlo para meterlo en la BBDD
-        BCryptPasswordEncoder pass = new BCryptPasswordEncoder();
-        String password = pass.encode(user.getPassword());
         UserDetails details = User.withUsername(user.getEmail())
-            .password(password)
+            .password(user.getPassword())
             .accountExpired(false)
             .accountLocked(false)
-            .roles("USER")
+            .roles(user.getRole().toString())
             .build();
         return details;
             

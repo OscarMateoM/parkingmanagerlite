@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.hormigo.david.parkingmanager.core.exceptions.UserExistsException;
 import com.hormigo.david.parkingmanager.user.domain.Role;
@@ -23,13 +25,15 @@ import com.hormigo.david.parkingmanager.user.domain.UserDao;
 import com.hormigo.david.parkingmanager.user.domain.UserRepository;
 
 public class UserServiceImplTest {
+    @Autowired
+    private PasswordEncoder encoder;
     @Test
     void testGetAll() {
         final List<User> expected = new ArrayList<>();
         expected.add(new User("david@correo", "David", "Hormigo", "Ramirez", Role.PROFESSOR));
         final UserRepository mockedRepository = mock(UserRepository.class);
         when(mockedRepository.findAll()).thenReturn(expected);
-        final UserService service = new UserServiceImpl(mockedRepository);
+        final UserService service = new UserServiceImpl(mockedRepository,encoder);
         final List<User> actual = (List<User>) service.getAll();
         assertEquals(expected, actual);
     }
@@ -38,10 +42,10 @@ public class UserServiceImplTest {
     void testUserDoesNotExists() {
         // Arrange
         UserRepository mockRepository = mock(UserRepository.class);
-        UserDao userDao = new UserDao("david@correo", "David", "Hormigo", "Ramírez", Role.PROFESSOR);
+        UserDao userDao = new UserDao("david@correo", "1234","David", "Hormigo", "Ramírez", Role.PROFESSOR);
         when(mockRepository.findByEmail("david@correo")).thenReturn(null);
 
-        UserService service = new UserServiceImpl(mockRepository);
+        UserService service = new UserServiceImpl(mockRepository,encoder);
 
         // Act
         try {
@@ -57,11 +61,11 @@ public class UserServiceImplTest {
     void testUserAlreadyExists() {
         // Arrange
         UserRepository mockRepository = mock(UserRepository.class);
-        UserDao userDao = new UserDao("david@correo", "David", "Hormigo", "Ramírez", Role.PROFESSOR);
+        UserDao userDao = new UserDao("david@correo", "1234", "David", "Hormigo", "Ramírez", Role.PROFESSOR);
         when(mockRepository.findByEmail("david@correo"))
                 .thenReturn( Optional.of(new User("david@correo", "1234","David", "Hormigo", "Ramírez", Role.PROFESSOR)));
 
-        UserService service = new UserServiceImpl(mockRepository);
+        UserService service = new UserServiceImpl(mockRepository,encoder);
         // Act y assert
         assertThrows(UserExistsException.class,
                 () -> {
@@ -77,7 +81,7 @@ public class UserServiceImplTest {
       //UserDao userDao = new UserDao("david@correo", "David", "Hormigo", "Ramírez", Role.PROFESSOR);
       when(mockRepository.findByEmail("david@correo")).thenReturn(null);
 
-      UserService service = new UserServiceImpl(mockRepository);
+      UserService service = new UserServiceImpl(mockRepository,encoder);
 
       assertFalse(service.userExists("david@correo"));
     }
@@ -90,7 +94,7 @@ public class UserServiceImplTest {
         when(mockRepository.findByEmail("david@correo"))
                 .thenReturn(Optional.of(new User("david@correo", "1234","David", "Hormigo", "Ramírez", Role.PROFESSOR)));
         
-        UserService service = new UserServiceImpl(mockRepository);
+        UserService service = new UserServiceImpl(mockRepository,encoder);
         assertTrue(service.userExists("david@correo"));
      }
 
