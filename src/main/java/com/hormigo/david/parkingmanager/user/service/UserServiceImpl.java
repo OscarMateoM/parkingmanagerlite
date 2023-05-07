@@ -3,6 +3,7 @@ package com.hormigo.david.parkingmanager.user.service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import com.hormigo.david.parkingmanager.core.exceptions.UserDoesNotExistsException;
 import com.hormigo.david.parkingmanager.core.exceptions.UserExistsException;
 import com.hormigo.david.parkingmanager.user.domain.User;
 import com.hormigo.david.parkingmanager.user.domain.UserDao;
@@ -34,8 +35,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean userExists(String email) {
-        return this.repository.findByEmail(email) != null ? true : false;
+        return getByEmail(email) != null ? true : false;
 
     }
+
+    @Override
+    public User getByEmail(String email) throws UserDoesNotExistsException {
+        return this.repository.findByEmail(email).orElseThrow(UserDoesNotExistsException::new);
+    }
+
+    
 
 }

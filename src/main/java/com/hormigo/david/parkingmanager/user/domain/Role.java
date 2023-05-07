@@ -12,5 +12,6 @@ public enum Role {
     public String getDisplayName(){
         return this.displayName;
     }
+
     
 }

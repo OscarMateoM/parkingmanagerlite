@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -58,7 +59,7 @@ public class UserServiceImplTest {
         UserRepository mockRepository = mock(UserRepository.class);
         UserDao userDao = new UserDao("david@correo", "David", "Hormigo", "Ramírez", Role.PROFESSOR);
         when(mockRepository.findByEmail("david@correo"))
-                .thenReturn(new User("david@correo", "David", "Hormigo", "Ramírez", Role.PROFESSOR));
+                .thenReturn( Optional.of(new User("david@correo", "1234","David", "Hormigo", "Ramírez", Role.PROFESSOR)));
 
         UserService service = new UserServiceImpl(mockRepository);
         // Act y assert
@@ -87,7 +88,7 @@ public class UserServiceImplTest {
         UserRepository mockRepository = mock(UserRepository.class);
         //UserDao userDao = new UserDao("david@correo", "David", "Hormigo", "Ramírez", Role.PROFESSOR);
         when(mockRepository.findByEmail("david@correo"))
-                .thenReturn(new User("david@correo", "David", "Hormigo", "Ramírez", Role.PROFESSOR));
+                .thenReturn(Optional.of(new User("david@correo", "1234","David", "Hormigo", "Ramírez", Role.PROFESSOR)));
         
         UserService service = new UserServiceImpl(mockRepository);
         assertTrue(service.userExists("david@correo"));

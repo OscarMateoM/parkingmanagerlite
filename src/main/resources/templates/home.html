@@ -14,7 +14,7 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a id="to-home-link" class="navbar-item" href="/home">
-          <img
+            <img
             src="/images/viajar.png"
           />
         </a>
@@ -27,32 +27,13 @@
           </div>
         </div>
       </div>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a href="/logout" class="button is-light">Logout
+            </a>
+        </div>
+      </div>
     </nav>
-    <h1 id="users-title" class="title is-1">Usuarios</h1>
-    <a id="users-button-create" href="/newUser" class="button is-primary"
-      >Crear nuevo usuario</a
-    >
-    <div class="column is-three-fifths is-offset-one-fifth">
-      <table class="table">
-        <thead>
-          <tr>
-            <td>Email</td>
-            <td>Nombre</td>
-            <td>Apellido 1</td>
-            <td>Apellido 2</td>
-            <td>Perfil</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="user: ${users}">
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.name}"></td>
-            <td th:text="${user.lastName1}"></td>
-            <td th:text="${user.lastName2}"></td>
-            <td th:text="${user.role.getDisplayName()}"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </body>
 </html>

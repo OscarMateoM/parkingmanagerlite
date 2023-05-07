@@ -20,6 +20,13 @@ public class User {
     private long id;
     @Column(unique = true)
     private String email;
+    private String password;
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
     private String name;
     private String lastName1;
     private String lastName2;
@@ -31,11 +38,12 @@ public class User {
      inverseJoinColumns = @JoinColumn(name="draw_id"))
     private Set<Draw> includedIn;
 
-    public User(String email, String name, String lastName1, Role role) {
-        this(email,name,lastName1,"",role);
+    public User(String email, String password, String name, String lastName1, Role role) {
+        this(email,password,name,lastName1,"",role);
     }
-    public User(String email, String name, String lastName1, String lastName2, Role role) {
+    public User(String email, String password, String name, String lastName1, String lastName2, Role role) {
         this.email = email;
+        this.password = password;
         this.name = name;
         this.lastName1 = lastName1;
         this.lastName2 = lastName2;
@@ -45,7 +53,7 @@ public class User {
      * 
      */
     public User() {
-        this("","","",null);
+        this("","","","",null);
     }
 
     /**
