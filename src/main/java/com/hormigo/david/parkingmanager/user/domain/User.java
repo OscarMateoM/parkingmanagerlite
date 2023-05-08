@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -28,7 +29,8 @@ public class User {
     private boolean expired;
     private boolean locked;
     private boolean verified;
-    
+    @OneToMany(mappedBy = "user")
+    private Set<SecureToken> tokens;
     @ManyToMany
     @JoinTable(name = "users_included",
     joinColumns = @JoinColumn(name="user_id"),
@@ -76,19 +78,38 @@ public class User {
     public void setExpired(boolean expired) {
         this.expired = expired;
     }
+    /**
+     * 
+     * @return
+     */
     public boolean isLocked() {
         return locked;
     }
+    /**
+     * 
+     * @param locked
+     */
     public void setLocked(boolean locked) {
         this.locked = locked;
     }
+    /**
+     * 
+     * @return
+     */
     public boolean isVerified() {
         return verified;
     }
+    /**
+     * 
+     * @param verified
+     */
     public void setVerified(boolean verified) {
         this.verified = verified;
     }
-
+    /**
+     * 
+     * @return
+     */
     public String getPassword() {
         return password;
     }
@@ -106,33 +127,73 @@ public class User {
     public void setId(long id) {
         this.id = id;
     }
+    /**
+     * 
+     * @return
+     */
     public String getEmail() {
         return email;
     }
+    /**
+     * 
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
+    /**
+     * 
+     * @return
+     */
     public String getName() {
         return name;
     }
+    /**
+     * 
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
+    /**
+     * 
+     * @return
+     */
     public String getLastName1() {
         return lastName1;
     }
+    /**
+     * 
+     * @param lastName1
+     */
     public void setLastName1(String lastName1) {
         this.lastName1 = lastName1;
     }
+    /**
+     * 
+     * @return
+     */
     public String getLastName2() {
         return lastName2;
     }
+    /**
+     * 
+     * @param lastName2
+     */
     public void setLastName2(String lastName2) {
         this.lastName2 = lastName2;
     }
+    /**
+     * 
+     * @return
+     */
     public Role getRole() {
         return role;
     }
+    /**
+     * 
+     * @param role
+     */
     public void setRole(Role role) {
         this.role = role;
     }

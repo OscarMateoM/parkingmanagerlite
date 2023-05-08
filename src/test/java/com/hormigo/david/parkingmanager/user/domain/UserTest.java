@@ -9,7 +9,7 @@ public class UserTest {
     private User user;
     @BeforeEach
     void prepareUser(){
-        user = new User("david.hormigo@correo.es","David","Hormigo","Ramirez",Role.PROFESSOR);
+        user = new User("david.hormigo@correo.es","1234","David","Hormigo","Ramirez",Role.PROFESSOR);
     }
     @Test
     void testGetEmail() {

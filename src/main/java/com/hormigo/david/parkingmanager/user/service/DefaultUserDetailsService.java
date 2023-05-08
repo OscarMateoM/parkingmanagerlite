@@ -9,10 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.User;
 
 import com.hormigo.david.parkingmanager.core.exceptions.UserDoesNotExistsException;
-import com.hormigo.david.parkingmanager.user.service.UserService;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class DefaultUserDetailsService implements UserDetailsService {
 
     @Autowired
     UserService userService;
