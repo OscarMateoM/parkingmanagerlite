@@ -2,18 +2,14 @@ package com.hormigo.david.parkingmanager.user.service;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hormigo.david.parkingmanager.core.email.AccountVerificationEmailContext;
 import com.hormigo.david.parkingmanager.core.email.service.EmailService;
-import com.hormigo.david.parkingmanager.core.email.AccountVerificationEmailContext;
-import com.hormigo.david.parkingmanager.core.email.service.EmailService;
 import com.hormigo.david.parkingmanager.core.exceptions.UserDoesNotExistsException;
 import com.hormigo.david.parkingmanager.core.exceptions.UserExistsException;
 import com.hormigo.david.parkingmanager.user.domain.SecureToken;
-import com.hormigo.david.parkingmanager.user.domain.SecureTokenRepository;
 import com.hormigo.david.parkingmanager.user.domain.User;
 import com.hormigo.david.parkingmanager.user.domain.UserDao;
 import com.hormigo.david.parkingmanager.user.domain.UserRepository;
